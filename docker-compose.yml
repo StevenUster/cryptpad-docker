@@ -1,0 +1,21 @@
+services:
+  cryptpad:
+    image: 'cryptpad/cryptpad:version-2025.6.0'
+    hostname: cryptpad
+    user: "0:0"  # Temporarily run as root
+    environment:
+      - 'CPAD_MAIN_DOMAIN=https://drive.****.de'
+      - CPAD_CONF=/cryptpad/config/config.js
+      - CPAD_INSTALL_ONLYOFFICE=yes
+    volumes:
+      - cryptpad_blob:/cryptpad/blob
+      - cryptpad_block:/cryptpad/block
+      - cryptpad_customize:/cryptpad/customize
+      - cryptpad_data:/cryptpad/data
+      - cryptpad_files:/cryptpad/datastore
+      - cryptpad_onlyoffice_dist:/cryptpad/www/common/onlyoffice/dist
+      - cryptpad_onlyoffice_conf:/cryptpad/onlyoffice-conf
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1000000
